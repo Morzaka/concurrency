@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
+	//runtime.GOMAXPROCS(5)
+
 	jobs := make(chan int, 100)
 	results := make(chan int, 100)
 
@@ -22,10 +26,11 @@ func worker(job <-chan int, results chan<- int) {
 	for n := range job {
 		results <- fib(n)
 	}
+	close(results)
 }
 
 func fib(n int) int {
-	if n == 1 {
+	if n <= 1 {
 		return n
 	}
 
