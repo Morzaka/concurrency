@@ -3,9 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	c := make(chan string)
+	c := make(chan string, 2)
 	c <- "hello"
+	c <- "sheep"
 
 	msg := <-c
+	fmt.Println(msg)
+
+	msg = <-c
 	fmt.Println(msg)
 }

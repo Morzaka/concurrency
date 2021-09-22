@@ -2,14 +2,20 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 )
 
 func main() {
-	//runtime.GOMAXPROCS(5)
+	runtime.GOMAXPROCS(3)
 
 	jobs := make(chan int, 100)
 	results := make(chan int, 100)
 
+	go worker(jobs, results)
+	go worker(jobs, results)
+	go worker(jobs, results)
+	go worker(jobs, results)
+	go worker(jobs, results)
 	go worker(jobs, results)
 
 	for i := 0; i < 100; i++ {
